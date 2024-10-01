@@ -1,0 +1,112 @@
+<div>
+  <h2>Standard Proctor Test Calculator with Observation Table</h2>
+
+  <table border="1" cellpadding="10">
+    <thead>
+      <tr>
+        <th>Trial No.</th>
+        <th>Mass of Soil (g)</th>
+        <th>Dry Weight of Soil (g)</th>
+        <th>Moisture Content(%)</th>
+        <th>Volume of Mould (cm³)</th>
+        <th>Dry Density (g/cm³)</th>
+      </tr>
+    </thead>
+    <tbody id="observationTable">
+      <tr>
+        <td>1</td>
+        <td><input type="number" id="wetWeight1" placeholder="Enter wet weight" /></td>
+        <td><input type="number" id="dryWeight1" placeholder="Enter dry weight" /></td>
+        <td><input type="number" id="moistureContent1" placeholder="Enter moisture content" /></td>
+        <td><input type="number" id="volume1" placeholder="Enter volume" /></td>
+        <td><span id="dryDensity1">-</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><input type="number" id="wetWeight2" placeholder="Enter wet weight" /></td>
+        <td><input type="number" id="dryWeight2" placeholder="Enter dry weight" /></td>
+        <td><input type="number" id="moistureContent2" placeholder="Enter moisture content" /></td>
+        <td><input type="number" id="volume2" placeholder="Enter volume" /></td>
+        <td><span id="dryDensity2">-</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><input type="number" id="wetWeight3" placeholder="Enter wet weight" /></td>
+        <td><input type="number" id="dryWeight3" placeholder="Enter dry weight" /></td>
+        <td><input type="number" id="moistureContent3" placeholder="Enter moisture content" /></td>
+        <td><input type="number" id="volume3" placeholder="Enter volume" /></td>
+        <td><span id="dryDensity3">-</span></td>
+      </tr>
+        <td>4</td>
+        <td><input type="number" id="wetWeight4" placeholder="Enter wet weight" /></td>
+        <td><input type="number" id="dryWeight4" placeholder="Enter dry weight" /></td>
+        <td><input type="number" id="moistureContent4" placeholder="Enter moisture content" /></td>
+        <td><input type="number" id="volume4" placeholder="Enter volume" /></td>
+        <td><span id="dryDensity4">-</span></td>
+      </tr>
+      </tr>
+  <td>5</td>
+        <td><input type="number" id="wetWeight5" placeholder="Enter wet weight" /></td>
+        <td><input type="number" id="dryWeight5" placeholder="Enter dry weight" /></td>
+        <td><input type="number" id="moistureContent5" placeholder="Enter moisture content" /></td>
+        <td><input type="number" id="volume5" placeholder="Enter volume" /></td>
+        <td><span id="dryDensity5">-</span></td>
+      </tr>
+      </tr>
+<td>6</td>
+        <td><input type="number" id="wetWeight6" placeholder="Enter wet weight" /></td>
+        <td><input type="number" id="dryWeight6" placeholder="Enter dry weight" /></td>
+        <td><input type="number" id="moistureContent6" placeholder="Enter moisture content" /></td>
+        <td><input type="number" id="volume6" placeholder="Enter volume" /></td>
+        <td><span id="dryDensity6">-</span></td>
+      </tr>
+      </tr>
+    </tbody>
+  </table>
+  
+  <br/>
+  <button onclick="calculateObservations()">Calculate Dry Densities</button><br /><br />
+
+  <h6>Results:</h6>
+  <p id="mddResult">Maximum Dry Density (g/cm³):</p>
+  <p id="omcResult">Optimum Moisture Content (%):</p>
+</div>
+
+<script>
+  function calculateDryDensity(dryWeight, volume) {
+    return dryWeight / volume;
+  }
+
+  function calculateObservations() {
+    let maxDryDensity = 0;
+    let omc = 0;
+
+    for (let i = 1; i <= 6; i++) {
+      // Get input values for each observation
+      const wetWeight = parseFloat(document.getElementById('wetWeight' + i).value);
+      const dryWeight = parseFloat(document.getElementById('dryWeight' + i).value);
+      const moistureContent = parseFloat(document.getElementById('moistureContent' + i).value);
+      const volume = parseFloat(document.getElementById('volume' + i).value);
+
+      // Ensure all inputs are valid numbers
+      if (isNaN(wetWeight) || isNaN(dryWeight) || isNaN(moistureContent) || isNaN(volume)) {
+        alert('Please enter valid numbers for observation ' + i);
+        return;
+      }
+
+      // Calculate Dry Density for this observation
+      const dryDensity = calculateDryDensity(dryWeight, volume);
+      document.getElementById('dryDensity' + i).innerHTML = dryDensity.toFixed(2);
+
+      // Track Maximum Dry Density and corresponding Optimum Moisture Content
+      if (dryDensity > maxDryDensity) {
+        maxDryDensity = dryDensity;
+        omc = moistureContent;  // The moisture content corresponding to the max dry density
+      }
+    }
+
+    // Display Maximum Dry Density and Optimum Moisture Content
+    document.getElementById('mddResult').innerHTML = 'Maximum Dry Density (g/cm³): ' + maxDryDensity.toFixed(2);
+    document.getElementById('omcResult').innerHTML = 'Optimum Moisture Content (%): ' + omc.toFixed(2);
+  }
+</script>

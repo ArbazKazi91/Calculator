@@ -1,0 +1,151 @@
+&lt;div&gt;
+&lt;h2&gt;Standard Proctor Test Calculator with Observation Table&lt;/h2&gt;
+
+&lt;table border=&quot;1&quot; cellpadding=&quot;10&quot; id=&quot;observationTable&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Trial No.&lt;/th&gt;
+&lt;th&gt;Mass of Soil (g)&lt;/th&gt;
+&lt;th&gt;Dry Weight of Soil (g)&lt;/th&gt;
+&lt;th&gt;Moisture Content (%)&lt;/th&gt;
+&lt;th&gt;Volume of Mould (cm³)&lt;/th&gt;
+&lt;th&gt;Dry Density (g/cm³)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;wetWeight1&quot; placeholder=&quot;Enter wet weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;dryWeight1&quot; placeholder=&quot;Enter dry weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;moistureContent1&quot; placeholder=&quot;Enter moisture content&quot;
+/&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;volume1&quot; placeholder=&quot;Enter volume&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span id=&quot;dryDensity1&quot;&gt;-&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;wetWeight2&quot; placeholder=&quot;Enter wet weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;dryWeight2&quot; placeholder=&quot;Enter dry weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;moistureContent2&quot; placeholder=&quot;Enter moisture content&quot;
+/&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;volume2&quot; placeholder=&quot;Enter volume&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span id=&quot;dryDensity2&quot;&gt;-&lt;/span&gt;&lt;/td&gt;
+
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;wetWeight3&quot; placeholder=&quot;Enter wet weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;dryWeight3&quot; placeholder=&quot;Enter dry weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;moistureContent3&quot; placeholder=&quot;Enter moisture content&quot;
+/&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;volume3&quot; placeholder=&quot;Enter volume&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span id=&quot;dryDensity3&quot;&gt;-&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;wetWeight4&quot; placeholder=&quot;Enter wet weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;dryWeight4&quot; placeholder=&quot;Enter dry weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;moistureContent4&quot; placeholder=&quot;Enter moisture content&quot;
+/&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;volume4&quot; placeholder=&quot;Enter volume&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span id=&quot;dryDensity4&quot;&gt;-&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;wetWeight5&quot; placeholder=&quot;Enter wet weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;dryWeight5&quot; placeholder=&quot;Enter dry weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;moistureContent5&quot; placeholder=&quot;Enter moisture content&quot;
+/&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;volume5&quot; placeholder=&quot;Enter volume&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span id=&quot;dryDensity5&quot;&gt;-&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;wetWeight6&quot; placeholder=&quot;Enter wet weight&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;dryWeight6&quot; placeholder=&quot;Enter dry weight&quot; /&gt;&lt;/td&gt;
+
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;moistureContent6&quot; placeholder=&quot;Enter moisture content&quot;
+/&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;volume6&quot; placeholder=&quot;Enter volume&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span id=&quot;dryDensity6&quot;&gt;-&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br/&gt;
+&lt;button onclick=&quot;calculateObservations()&quot;&gt;Calculate Dry Densities&lt;/button&gt;
+&lt;button onclick=&quot;printTable()&quot;&gt;Print as PDF&lt;/button&gt;
+&lt;button onclick=&quot;clearAll()&quot;&gt;Clear All&lt;/button&gt;&lt;br /&gt;&lt;br /&gt;
+
+&lt;h6&gt;Results:&lt;/h6&gt;
+&lt;p id=&quot;mddResult&quot;&gt;Maximum Dry Density (g/cm³):&lt;/p&gt;
+&lt;p id=&quot;omcResult&quot;&gt;Optimum Moisture Content (%):&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function calculateDryDensity(dryWeight, volume) {
+return dryWeight / volume;
+}
+
+function calculateObservations() {
+let maxDryDensity = 0;
+let omc = 0;
+
+for (let i = 1; i &lt;= 6; i++) {
+// Get input values for each observation
+const wetWeight = parseFloat(document.getElementById(&#39;wetWeight&#39; + i).value);
+const dryWeight = parseFloat(document.getElementById(&#39;dryWeight&#39; + i).value);
+
+const moistureContent = parseFloat(document.getElementById(&#39;moistureContent&#39; + i).value);
+const volume = parseFloat(document.getElementById(&#39;volume&#39; + i).value);
+
+// Ensure all inputs are valid numbers
+if (isNaN(wetWeight) || isNaN(dryWeight) || isNaN(moistureContent) || isNaN(volume)) {
+alert(&#39;Please enter valid numbers for observation &#39; + i);
+return;
+}
+
+// Calculate Dry Density for this observation
+const dryDensity = calculateDryDensity(dryWeight, volume);
+document.getElementById(&#39;dryDensity&#39; + i).innerHTML = dryDensity.toFixed(2);
+
+// Track Maximum Dry Density and corresponding Optimum Moisture Content
+if (dryDensity &gt; maxDryDensity) {
+maxDryDensity = dryDensity;
+omc = moistureContent; // The moisture content corresponding to the max dry density
+}
+}
+
+// Display Maximum Dry Density and Optimum Moisture Content
+document.getElementById(&#39;mddResult&#39;).innerHTML = &#39;Maximum Dry Density (g/cm³): &#39; +
+maxDryDensity.toFixed(2);
+document.getElementById(&#39;omcResult&#39;).innerHTML = &#39;Optimum Moisture Content (%): &#39; +
+omc.toFixed(2);
+}
+
+function printTable() {
+var divContents = document.getElementById(&quot;observationTable&quot;).outerHTML;
+var printWindow = window.open(&#39;&#39;, &#39;&#39;, &#39;height=400,width=800&#39;);
+printWindow.document.write(&#39;&lt;html&gt;&lt;head&gt;&lt;title&gt;Observation Table&lt;/title&gt;&#39;);
+printWindow.document.write(&#39;&lt;/head&gt;&lt;body &gt;&#39;);
+
+printWindow.document.write(&#39;&lt;h2&gt;Standard Proctor Test Results&lt;/h2&gt;&#39;);
+printWindow.document.write(divContents);
+printWindow.document.write(&#39;&lt;/body&gt;&lt;/html&gt;&#39;);
+printWindow.document.close();
+printWindow.print();
+}
+
+// Function to clear all input fields and results
+function clearAll() {
+for (let i = 1; i &lt;= 6; i++) {
+document.getElementById(&#39;wetWeight&#39; + i).value = &#39;&#39;;
+document.getElementById(&#39;dryWeight&#39; + i).value = &#39;&#39;;
+document.getElementById(&#39;moistureContent&#39; + i).value = &#39;&#39;;
+document.getElementById(&#39;volume&#39; + i).value = &#39;&#39;;
+document.getElementById(&#39;dryDensity&#39; + i).innerHTML = &#39;-&#39;;
+}
+document.getElementById(&#39;mddResult&#39;).innerHTML = &#39;Maximum Dry Density (g/cm³):&#39;;
+document.getElementById(&#39;omcResult&#39;).innerHTML = &#39;Optimum Moisture Content (%):&#39;;
+}
+&lt;/script&gt;

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grain Size Distribution</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 100px;
+        }
+        canvas {
+            margin-top: 30px;
+        }
+        button {
+            margin: 20px 0;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Grain Size Distribution</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Sieve Size (mm)</th>
+                <th>Weight Retained (g)</th>
+                <th>Cumulative Weight Retained (g)</th>
+                <th>Cumulative % Retained</th>
+                <th>Cumulative % Passing</th>
+            </tr>
+        </thead>
+        <tbody id="observationTable">
+            <tr>
+                <td><input type="number" id="sieveSize1" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained1" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight1">-</td>
+                <td id="cumulativePercentRetained1">-</td>
+                <td id="cumulativePercentPassing1">-</td>
+            </tr>
+            <tr>
+                <td><input type="number" id="sieveSize2" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained2" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight2">-</td>
+                <td id="cumulativePercentRetained2">-</td>
+                <td id="cumulativePercentPassing2">-</td>
+            </tr>
+            <tr>
+                <td><input type="number" id="sieveSize3" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained3" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight3">-</td>
+                <td id="cumulativePercentRetained3">-</td>
+                <td id="cumulativePercentPassing3">-</td>
+            </tr>
+            <tr>
+                <td><input type="number" id="sieveSize4" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained4" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight4">-</td>
+                <td id="cumulativePercentRetained4">-</td>
+                <td id="cumulativePercentPassing4">-</td>
+            </tr>
+          <tr>
+                <td><input type="number" id="sieveSize5" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained5" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight5">-</td>
+                <td id="cumulativePercentRetained5">-</td>
+                <td id="cumulativePercentPassing5">-</td>
+            </tr>
+          <tr>
+                <td><input type="number" id="sieveSize6" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained6" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight6">-</td>
+                <td id="cumulativePercentRetained6">-</td>
+                <td id="cumulativePercentPassing6">-</td>
+            </tr>
+          <tr>
+                <td><input type="number" id="sieveSize7" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained7" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight">-</td>
+                <td id="cumulativePercentRetained7">-</td>
+                <td id="cumulativePercentPassing7">-</td>
+            </tr>
+          <tr>
+                <td><input type="number" id="sieveSize8" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained8" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight8">-</td>
+                <td id="cumulativePercentRetained8">-</td>
+                <td id="cumulativePercentPassing8">-</td>
+            </tr>
+          <tr>
+                <td><input type="number" id="sieveSize9" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained9" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight9">-</td>
+                <td id="cumulativePercentRetained9">-</td>
+                <td id="cumulativePercentPassing9">-</td>
+            </tr>
+          <tr>
+                <td><input type="number" id="sieveSize10" placeholder="Sieve Size"></td>
+                <td><input type="number" id="weightRetained10" placeholder="Weight Retained" oninput="calculate()"></td>
+                <td id="cumulativeWeight10">-</td>
+                <td id="cumulativePercentRetained10">-</td>
+                <td id="cumulativePercentPassing10">-</td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="calculate()">Calculate and Plot</button>
+
+    <canvas id="grainSizeChart"></canvas>
+</div>
+
+<script>
+    function calculate() {
+        const rows = 3;  // Modify this according to how many rows you have
+        let totalWeight = 0;
+        let sieveSizes = [];
+        let cumulativePassing = [];
+
+        // Calculate cumulative weights and percentages
+        for (let i = 1; i <= rows; i++) {
+            const weightRetained = parseFloat(document.getElementById('weightRetained' + i).value) || 0;
+            totalWeight += weightRetained;
+        }
+
+        let cumulativeWeight = 0;
+        for (let i = 1; i <= rows; i++) {
+            const sieveSize = parseFloat(document.getElementById('sieveSize' + i).value) || 0;
+            const weightRetained = parseFloat(document.getElementById('weightRetained' + i).value) || 0;
+
+            cumulativeWeight += weightRetained;
+            const cumulativePercentRetained = (cumulativeWeight / totalWeight) * 100;
+            const cumulativePercentPassing = 100 - cumulativePercentRetained;
+
+            document.getElementById('cumulativeWeight' + i).innerText = cumulativeWeight.toFixed(2);
+            document.getElementById('cumulativePercentRetained' + i).innerText = cumulativePercentRetained.toFixed(2);
+            document.getElementById('cumulativePercentPassing' + i).innerText = cumulativePercentPassing.toFixed(2);
+
+            sieveSizes.push(sieveSize);
+            cumulativePassing.push(cumulativePercentPassing);
+        }
+
+        plotChart(sieveSizes, cumulativePassing);
+    }
+
+    function plotChart(sieveSizes, cumulativePassing) {
+        const ctx = document.getElementById('grainSizeChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: sieveSizes,
+                datasets: [{
+                    label: 'Cumulative % Passing',
+                    data: cumulativePassing,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Sieve Size (mm)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Cumulative % Passing'
+                        },
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

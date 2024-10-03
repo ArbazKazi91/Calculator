@@ -50,12 +50,6 @@
             font-weight: bold;
             color: #333;
         }
-        .average {
-            margin-top: 20px;
-            text-align: center;
-            font-weight: bold;
-            color: #333;
-        }
         button {
             margin-right: 10px;
             padding: 10px 15px;
@@ -176,7 +170,6 @@
         <button onclick="clearAll()">Clear All</button>
 
         <div class="result" id="result"></div>
-        <div class="average" id="averageResult"></div>
     </div>
 
     <div class="footer">
@@ -185,9 +178,6 @@
 
     <script>
         function calculateObservations() {
-            let totalWaterContent = 0;
-            let validCount = 0;
-
             for (let i = 1; i <= 6; i++) {
                 // Get input values for the sample
                 const MassofContainer = parseFloat(document.getElementById(`MassofContainer${i}`).value);
@@ -195,4 +185,10 @@
                 const MassofContainerwithDrySoil = parseFloat(document.getElementById(`MassofContainerwithDrySoil${i}`).value);
 
                 // Ensure the inputs are valid
-                if (isNaN(MassofContainer) || isNaN(Mass
+                if (isNaN(MassofContainer) || isNaN(MassofContainerwithWetSoil) || isNaN(MassofContainerwithDrySoil)) {
+                    alert('Please enter valid numbers for all fields.');
+                    return;
+                }
+
+                // Calculate Mass of Water and Mass of Dry Soil
+                const MassofWater = MassofContainerwithWetSoil - MassofContainerwithDrySoil

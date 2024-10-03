@@ -4,29 +4,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Standard Proctor Test Calculator</title>
+  <style>
+    .demographics input {
+      width: 50%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-  <div>
-     }
-        .demographics input {
-            width: 50%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="content">
-        <div class="demographics">
-            <input type="text" id="studentName" placeholder="Enter Name" required>
-            <input type="text" id="class" placeholder="Enter Class" required>
-            <input type="text" id="rollNumber" placeholder="Enter Roll Number" required>
-        </div>
+  <div class="content">
+    <div class="demographics">
+      <input type="text" id="studentName" placeholder="Enter Name" required>
+      <input type="text" id="class" placeholder="Enter Class" required>
+      <input type="text" id="rollNumber" placeholder="Enter Roll Number" required>
+    </div>
+
     <h2>Standard Proctor Test Calculator with Observation Table</h2>
 
-    <table border="1" cellpadding="10" id="observationTable">
+    <table id="observationTable">
       <thead>
         <tr>
           <th>Trial No.</th>
@@ -88,11 +109,12 @@
         </tr>
       </tbody>
     </table>
-    
-    <br/>
+
+    <br />
     <button onclick="calculateObservations()">Calculate Dry Densities</button>
     <button onclick="printTable()">Print as PDF</button>
-    <button onclick="clearAll()">Clear All</button><br /><br />
+    <button onclick="clearAll()">Clear All</button>
+    <br /><br />
 
     <h6>Results:</h6>
     <p id="mddResult">Maximum Dry Density (g/cm³):</p>
@@ -109,74 +131,56 @@
       let omc = 0;
 
       for (let i = 1; i <= 6; i++) {
-        // Get input values for each observation
         const wetWeight = parseFloat(document.getElementById('wetWeight' + i).value);
         const dryWeight = parseFloat(document.getElementById('dryWeight' + i).value);
         const moistureContent = parseFloat(document.getElementById('moistureContent' + i).value);
         const volume = parseFloat(document.getElementById('volume' + i).value);
 
-        // Ensure all inputs are valid numbers
         if (isNaN(wetWeight) || isNaN(dryWeight) || isNaN(moistureContent) || isNaN(volume)) {
           alert('Please enter valid numbers for observation ' + i);
           return;
         }
 
-        // Calculate Dry Density for this observation
         const dryDensity = calculateDryDensity(dryWeight, volume);
         document.getElementById('dryDensity' + i).innerHTML = dryDensity.toFixed(2);
 
-        // Track Maximum Dry Density and corresponding Optimum Moisture Content
         if (dryDensity > maxDryDensity) {
           maxDryDensity = dryDensity;
-          omc = moistureContent;  // The moisture content corresponding to the max dry density
+          omc = moistureContent;
         }
       }
 
-      // Display Maximum Dry Density and Optimum Moisture Content
       document.getElementById('mddResult').innerHTML = 'Maximum Dry Density (g/cm³): ' + maxDryDensity.toFixed(2);
       document.getElementById('omcResult').innerHTML = 'Optimum Moisture Content (%): ' + omc.toFixed(2);
     }
 
     function printTable() {
-      // Create a new window for printing
       var printWindow = window.open('', '', 'height=400,width=800');
-      
-      // Write HTML content to the new window, including the table
-      printWindow.document.write('<html><head><title>Observation Table</title>');
-      printWindow.document.write('</head><body>');
+      printWindow.document.write('<html><head><title>Observation Table</title></head><body>');
       printWindow.document.write('<h2>Standard Proctor Test Results</h2>');
-
-      // Construct the table content for printing
       printWindow.document.write('<table border="1" cellpadding="10">');
       printWindow.document.write('<thead><tr><th>Trial No.</th><th>Mass of Soil (g)</th><th>Dry Weight of Soil (g)</th><th>Moisture Content (%)</th><th>Volume of Mould (cm³)</th><th>Dry Density (g/cm³)</th></tr></thead><tbody>');
-      
+
       for (let i = 1; i <= 6; i++) {
-        // Scrape the user-entered values and calculated dry density
         const wetWeight = document.getElementById('wetWeight' + i).value || '-';
         const dryWeight = document.getElementById('dryWeight' + i).value || '-';
         const moistureContent = document.getElementById('moistureContent' + i).value || '-';
         const volume = document.getElementById('volume' + i).value || '-';
         const dryDensity = document.getElementById('dryDensity' + i).innerHTML || '-';
 
-        // Add the row data into the print table
         printWindow.document.write('<tr><td>' + i + '</td><td>' + wetWeight + '</td><td>' + dryWeight + '</td><td>' + moistureContent + '</td><td>' + volume + '</td><td>' + dryDensity + '</td></tr>');
       }
 
       printWindow.document.write('</tbody></table>');
-
-      // Include results for MDD and OMC in the printable document
       var mddResult = document.getElementById('mddResult').innerHTML;
       var omcResult = document.getElementById('omcResult').innerHTML;
       printWindow.document.write('<h3>' + mddResult + '</h3>');
       printWindow.document.write('<h3>' + omcResult + '</h3>');
-      
-      // Close the document and call print
       printWindow.document.write('</body></html>');
       printWindow.document.close();
       printWindow.print();
     }
 
-    // Function to clear all input fields and results
     function clearAll() {
       for (let i = 1; i <= 6; i++) {
         document.getElementById('wetWeight' + i).value = '';

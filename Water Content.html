@@ -68,7 +68,6 @@
 </head>
 <body>
     <div class="content">
-        
         <div class="demographics">
             <input type="text" id="studentName" placeholder="Enter Name" required>
             <input type="text" id="class" placeholder="Enter Class" required>
@@ -183,4 +182,34 @@
                 }
 
                 // Calculate Mass of Water and Mass of Dry Soil
-                const MassofWater = MassofContainerwithWetSoil - MassofContainerwithDrySoil
+                const MassofWater = MassofContainerwithWetSoil - MassofContainer;
+                const MassofDrySoil = MassofContainerwithDrySoil - MassofContainer;
+
+                // Calculate Water Content
+                const waterContent = (MassofWater / MassofDrySoil) * 100;
+
+                // Update the corresponding spans with calculated values
+                document.getElementById(`MassofWater${i}`).innerText = MassofWater.toFixed(2);
+                document.getElementById(`MassofDrySoil${i}`).innerText = MassofDrySoil.toFixed(2);
+                document.getElementById(`WaterContent${i}`).innerText = waterContent.toFixed(2);
+            }
+        }
+
+        function printTable() {
+            window.print();
+        }
+
+        function clearAll() {
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`MassofContainer${i}`).value = '';
+                document.getElementById(`MassofContainerwithWetSoil${i}`).value = '';
+                document.getElementById(`MassofContainerwithDrySoil${i}`).value = '';
+                document.getElementById(`MassofWater${i}`).innerText = '-';
+                document.getElementById(`MassofDrySoil${i}`).innerText = '-';
+                document.getElementById(`WaterContent${i}`).innerText = '-';
+            }
+            document.getElementById('result').innerText = '';
+        }
+    </script>
+</body>
+</html>

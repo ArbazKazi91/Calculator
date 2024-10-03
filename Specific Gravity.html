@@ -25,6 +25,10 @@
         form {
             margin-bottom: 20px;
         }
+        label {
+            display: inline-block;
+            width: 250px;
+        }
     </style>
 </head>
 <body>
@@ -32,6 +36,15 @@
 <h1>Specific Gravity of Soil by Density Bottle Method</h1>
 
 <form id="sgForm">
+    <label for="studentName">Student Name:</label>
+    <input type="text" id="studentName" required><br><br>
+
+    <label for="class">Class:</label>
+    <input type="text" id="class" required><br><br>
+
+    <label for="rollNo">Roll No:</label>
+    <input type="text" id="rollNo" required><br><br>
+
     <label for="weightOfEmptyBottle">Weight of Empty Bottle (g):</label>
     <input type="number" id="weightOfEmptyBottle" required><br><br>
 
@@ -42,7 +55,7 @@
     <input type="number" id="weightOfBottleWithSoilAndWater" required><br><br>
 
     <button type="button" onclick="calculateSG()">Calculate Specific Gravity</button>
-    <button type="button" onclick="clearForm()">Clear All</button>
+    <button type="reset" onclick="clearTable()">Clear All</button>
     <button type="button" onclick="printPDF()">Print PDF</button>
 </form>
 
@@ -53,6 +66,9 @@
     <thead>
         <tr>
             <th>Row</th>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Roll No</th>
             <th>Weight of Empty Bottle (g)</th>
             <th>Weight of Bottle + Water (g)</th>
             <th>Weight of Bottle + Soil + Water (g)</th>
@@ -62,6 +78,9 @@
     <tbody id="observationTable">
         <tr>
             <td>1</td>
+            <td><input type="text" class="studentName"></td>
+            <td><input type="text" class="class"></td>
+            <td><input type="text" class="rollNo"></td>
             <td><input type="number" class="emptyBottleWeight"></td>
             <td><input type="number" class="waterWeight"></td>
             <td><input type="number" class="soilWaterWeight"></td>
@@ -69,6 +88,9 @@
         </tr>
         <tr>
             <td>2</td>
+            <td><input type="text" class="studentName"></td>
+            <td><input type="text" class="class"></td>
+            <td><input type="text" class="rollNo"></td>
             <td><input type="number" class="emptyBottleWeight"></td>
             <td><input type="number" class="waterWeight"></td>
             <td><input type="number" class="soilWaterWeight"></td>
@@ -76,6 +98,9 @@
         </tr>
         <tr>
             <td>3</td>
+            <td><input type="text" class="studentName"></td>
+            <td><input type="text" class="class"></td>
+            <td><input type="text" class="rollNo"></td>
             <td><input type="number" class="emptyBottleWeight"></td>
             <td><input type="number" class="waterWeight"></td>
             <td><input type="number" class="soilWaterWeight"></td>
@@ -83,6 +108,9 @@
         </tr>
         <tr>
             <td>4</td>
+            <td><input type="text" class="studentName"></td>
+            <td><input type="text" class="class"></td>
+            <td><input type="text" class="rollNo"></td>
             <td><input type="number" class="emptyBottleWeight"></td>
             <td><input type="number" class="waterWeight"></td>
             <td><input type="number" class="soilWaterWeight"></td>
@@ -90,6 +118,9 @@
         </tr>
         <tr>
             <td>5</td>
+            <td><input type="text" class="studentName"></td>
+            <td><input type="text" class="class"></td>
+            <td><input type="text" class="rollNo"></td>
             <td><input type="number" class="emptyBottleWeight"></td>
             <td><input type="number" class="waterWeight"></td>
             <td><input type="number" class="soilWaterWeight"></td>
@@ -100,18 +131,21 @@
 
 <script>
     function calculateSG() {
+        const studentName = document.getElementById('studentName').value;
+        const studentClass = document.getElementById('class').value;
+        const rollNo = document.getElementById('rollNo').value;
         const weightOfEmptyBottle = parseFloat(document.getElementById('weightOfEmptyBottle').value);
         const weightOfBottleWithWater = parseFloat(document.getElementById('weightOfBottleWithWater').value);
         const weightOfBottleWithSoilAndWater = parseFloat(document.getElementById('weightOfBottleWithSoilAndWater').value);
-        
+
         const specificGravity = (weightOfBottleWithSoilAndWater - weightOfEmptyBottle) / (weightOfBottleWithWater - weightOfEmptyBottle);
         document.getElementById('result').textContent = specificGravity.toFixed(2);
 
         // Add data to observation table
-        addObservation(weightOfEmptyBottle, weightOfBottleWithWater, weightOfBottleWithSoilAndWater, specificGravity);
+        addObservation(studentName, studentClass, rollNo, weightOfEmptyBottle, weightOfBottleWithWater, weightOfBottleWithSoilAndWater, specificGravity);
     }
 
-    function addObservation(emptyBottleWeight, waterWeight, soilWaterWeight, specificGravity) {
+    function addObservation(studentName, studentClass, rollNo, emptyBottleWeight, waterWeight, soilWaterWeight, specificGravity) {
         const table = document.getElementById('observationTable');
         const rows = table.getElementsByTagName('tr');
         let emptyRowIndex = -1;
@@ -124,6 +158,9 @@
         }
 
         if (emptyRowIndex !== -1) {
+            rows[emptyRowIndex].querySelector('.studentName').value = studentName;
+            rows[emptyRowIndex].querySelector('.class').value = studentClass;
+            rows[emptyRowIndex].querySelector('.rollNo').value = rollNo;
             rows[emptyRowIndex].querySelector('.emptyBottleWeight').value = emptyBottleWeight;
             rows[emptyRowIndex].querySelector('.waterWeight').value = waterWeight;
             rows[emptyRowIndex].querySelector('.soilWaterWeight').value = soilWaterWeight;
@@ -133,11 +170,13 @@
         }
     }
 
-    function clearForm() {
-        document.getElementById('sgForm').reset();
+    function clearTable() {
         document.getElementById('result').textContent = '0';
         const rows = document.querySelectorAll('#observationTable tr');
         rows.forEach(row => {
+            row.querySelector('.studentName').value = '';
+            row.querySelector('.class').value = '';
+            row.querySelector('.rollNo').value = '';
             row.querySelector('.emptyBottleWeight').value = '';
             row.querySelector('.waterWeight').value = '';
             row.querySelector('.soilWaterWeight').value = '';
@@ -156,22 +195,6 @@
         win.print();
     }
 
-    // Update specific gravity in the observation table
-    document.querySelectorAll('.emptyBottleWeight, .waterWeight, .soilWaterWeight').forEach(input => {
-        input.addEventListener('input', function() {
-            const row = this.closest('tr');
-            const emptyBottleWeight = parseFloat(row.querySelector('.emptyBottleWeight').value);
-            const waterWeight = parseFloat(row.querySelector('.waterWeight').value);
-            const soilWaterWeight = parseFloat(row.querySelector('.soilWaterWeight').value);
-
-            if (!isNaN(emptyBottleWeight) && !isNaN(waterWeight) && !isNaN(soilWaterWeight) && (waterWeight > emptyBottleWeight)) {
-                const sgValue = (soilWaterWeight - emptyBottleWeight) / (waterWeight - emptyBottleWeight);
-                row.querySelector('.sgValue').textContent = sgValue.toFixed(2);
-            } else {
-                row.querySelector('.sgValue').textContent = '0';
-            }
-        });
-    });
 </script>
 
 </body>

@@ -50,6 +50,12 @@
             font-weight: bold;
             color: #333;
         }
+        .average {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
         button {
             margin-right: 10px;
             padding: 10px 15px;
@@ -66,7 +72,7 @@
             margin-bottom: 20px;
         }
         .demographics input {
-            width: 100%;
+            width: 50%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
@@ -83,7 +89,6 @@
             <input type="text" id="rollNumber" placeholder="Enter Roll Number" required>
         </div>
         <h1>Water Content Determination</h1>
-
 
         <p>The water content of a soil sample is determined by following these steps:</p>
         <ol>
@@ -108,6 +113,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Six observation rows -->
                 <tr>
                     <td>1</td>
                     <td><input type="number" id="MassofContainer1" placeholder="Enter"></td>
@@ -117,6 +123,51 @@
                     <td><span id="MassofDrySoil1">-</span></td>
                     <td><span id="WaterContent1">-</span></td>
                 </tr>
+                <tr>
+                    <td>2</td>
+                    <td><input type="number" id="MassofContainer2" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithWetSoil2" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithDrySoil2" placeholder="Enter"></td>
+                    <td><span id="MassofWater2">-</span></td>
+                    <td><span id="MassofDrySoil2">-</span></td>
+                    <td><span id="WaterContent2">-</span></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><input type="number" id="MassofContainer3" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithWetSoil3" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithDrySoil3" placeholder="Enter"></td>
+                    <td><span id="MassofWater3">-</span></td>
+                    <td><span id="MassofDrySoil3">-</span></td>
+                    <td><span id="WaterContent3">-</span></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><input type="number" id="MassofContainer4" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithWetSoil4" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithDrySoil4" placeholder="Enter"></td>
+                    <td><span id="MassofWater4">-</span></td>
+                    <td><span id="MassofDrySoil4">-</span></td>
+                    <td><span id="WaterContent4">-</span></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><input type="number" id="MassofContainer5" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithWetSoil5" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithDrySoil5" placeholder="Enter"></td>
+                    <td><span id="MassofWater5">-</span></td>
+                    <td><span id="MassofDrySoil5">-</span></td>
+                    <td><span id="WaterContent5">-</span></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><input type="number" id="MassofContainer6" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithWetSoil6" placeholder="Enter"></td>
+                    <td><input type="number" id="MassofContainerwithDrySoil6" placeholder="Enter"></td>
+                    <td><span id="MassofWater6">-</span></td>
+                    <td><span id="MassofDrySoil6">-</span></td>
+                    <td><span id="WaterContent6">-</span></td>
+                </tr>
             </tbody>
         </table>
 
@@ -125,6 +176,7 @@
         <button onclick="clearAll()">Clear All</button>
 
         <div class="result" id="result"></div>
+        <div class="average" id="averageResult"></div>
     </div>
 
     <div class="footer">
@@ -133,90 +185,14 @@
 
     <script>
         function calculateObservations() {
-            // Get input values for the first sample
-            const MassofContainer = parseFloat(document.getElementById('MassofContainer1').value);
-            const MassofContainerwithWetSoil = parseFloat(document.getElementById('MassofContainerwithWetSoil1').value);
-            const MassofContainerwithDrySoil = parseFloat(document.getElementById('MassofContainerwithDrySoil1').value);
+            let totalWaterContent = 0;
+            let validCount = 0;
 
-            // Ensure the inputs are valid
-            if (isNaN(MassofContainer) || isNaN(MassofContainerwithWetSoil) || isNaN(MassofContainerwithDrySoil)) {
-                alert('Please enter valid numbers for all fields.');
-                return;
-            }
+            for (let i = 1; i <= 6; i++) {
+                // Get input values for the sample
+                const MassofContainer = parseFloat(document.getElementById(`MassofContainer${i}`).value);
+                const MassofContainerwithWetSoil = parseFloat(document.getElementById(`MassofContainerwithWetSoil${i}`).value);
+                const MassofContainerwithDrySoil = parseFloat(document.getElementById(`MassofContainerwithDrySoil${i}`).value);
 
-            // Calculate Mass of Water and Mass of Dry Soil
-            const MassofWater = MassofContainerwithWetSoil - MassofContainerwithDrySoil;
-            const MassofDrySoil = MassofContainerwithDrySoil - MassofContainer;
-
-            // Calculate Water Content
-            const WaterContent = (MassofWater / MassofDrySoil) * 100;
-
-            // Display the results in the table
-            document.getElementById('MassofWater1').innerHTML = MassofWater.toFixed(2);
-            document.getElementById('MassofDrySoil1').innerHTML = MassofDrySoil.toFixed(2);
-            document.getElementById('WaterContent1').innerHTML = WaterContent.toFixed(2) + ' %';
-
-            // Display the result message
-            document.getElementById('result').innerHTML = `Water Content for Sample 1: ${WaterContent.toFixed(2)} %`;
-        }
-
-        function printTable() {
-            let printContent = '<h1>Water Content Determination</h1>';
-            printContent += `
-                             <p>Name: ${document.getElementById('studentName').value}</p>
-                             <p>Class: ${document.getElementById('class').value}</p>
-                             <p>Roll Number: ${document.getElementById('rollNumber').value}</p>`;
-            printContent += '<table border="1" cellpadding="10" cellspacing="0" style="width:100%;">';
-            printContent += '<thead><tr><th>Sample No.</th><th>Mass of Can (g)</th><th>Mass of Can with Wet Soil (g)</th><th>Mass of Can with Dry Soil (g)</th><th>Mass of Water (g)</th><th>Mass of Dry Soil (g)</th><th>Water Content (%)</th></tr></thead>';
-            printContent += '<tbody>';
-            
-            // Scrape the input values
-            for (let i = 1; i <= 1; i++) { // Change to a larger number for multiple samples
-                const massOfContainer = document.getElementById(`MassofContainer${i}`).value;
-                const massOfWetSoil = document.getElementById(`MassofContainerwithWetSoil${i}`).value;
-                const massOfDrySoil = document.getElementById(`MassofContainerwithDrySoil${i}`).value;
-                const massOfWater = document.getElementById(`MassofWater${i}`).innerText;
-                const massOfDrySoilValue = document.getElementById(`MassofDrySoil${i}`).innerText;
-                const waterContent = document.getElementById(`WaterContent${i}`).innerText;
-
-                printContent += `<tr>
-                    <td>${i}</td>
-                    <td>${massOfContainer}</td>
-                    <td>${massOfWetSoil}</td>
-                    <td>${massOfDrySoil}</td>
-                    <td>${massOfWater}</td>
-                    <td>${massOfDrySoilValue}</td>
-                    <td>${waterContent}</td>
-                </tr>`;
-            }
-
-            printContent += '</tbody></table>';
-            
-            const resultContent = document.getElementById('result').innerHTML;
-            if (resultContent) {
-                printContent += '<div style="margin-top: 20px; font-weight: bold;">' + resultContent + '</div>';
-            }
-
-            const printWindow = window.open('', '', 'height=500, width=800');
-            printWindow.document.write('<html><head><title>Print Table</title></head><body>');
-            printWindow.document.write(printContent);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        }
-
-        function clearAll() {
-            document.getElementById('MassofContainer1').value = '';
-            document.getElementById('MassofContainerwithWetSoil1').value = '';
-            document.getElementById('MassofContainerwithDrySoil1').value = '';
-            document.getElementById('MassofWater1').innerHTML = '-';
-            document.getElementById('MassofDrySoil1').innerHTML = '-';
-            document.getElementById('WaterContent1').innerHTML = '-';
-            document.getElementById('result').innerHTML = '';
-            document.getElementById('studentName').value = '';
-            document.getElementById('class').value = '';
-            document.getElementById('rollNumber').value = '';
-        }
-    </script>
-</body>
-</html>
+                // Ensure the inputs are valid
+                if (isNaN(MassofContainer) || isNaN(Mass

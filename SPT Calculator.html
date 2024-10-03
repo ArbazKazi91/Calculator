@@ -121,9 +121,6 @@
     }
 
     function printTable() {
-      // Get the entire table content, including updated values for dry density
-      var tableContents = document.getElementById("observationTable").outerHTML;
-      
       // Create a new window for printing
       var printWindow = window.open('', '', 'height=400,width=800');
       
@@ -131,8 +128,25 @@
       printWindow.document.write('<html><head><title>Observation Table</title>');
       printWindow.document.write('</head><body>');
       printWindow.document.write('<h2>Standard Proctor Test Results</h2>');
-      printWindow.document.write(tableContents); // Insert the table contents
+
+      // Construct the table content for printing
+      printWindow.document.write('<table border="1" cellpadding="10">');
+      printWindow.document.write('<thead><tr><th>Trial No.</th><th>Mass of Soil (g)</th><th>Dry Weight of Soil (g)</th><th>Moisture Content (%)</th><th>Volume of Mould (cm³)</th><th>Dry Density (g/cm³)</th></tr></thead><tbody>');
       
+      for (let i = 1; i <= 6; i++) {
+        // Scrape the user-entered values and calculated dry density
+        const wetWeight = document.getElementById('wetWeight' + i).value || '-';
+        const dryWeight = document.getElementById('dryWeight' + i).value || '-';
+        const moistureContent = document.getElementById('moistureContent' + i).value || '-';
+        const volume = document.getElementById('volume' + i).value || '-';
+        const dryDensity = document.getElementById('dryDensity' + i).innerHTML || '-';
+
+        // Add the row data into the print table
+        printWindow.document.write('<tr><td>' + i + '</td><td>' + wetWeight + '</td><td>' + dryWeight + '</td><td>' + moistureContent + '</td><td>' + volume + '</td><td>' + dryDensity + '</td></tr>');
+      }
+
+      printWindow.document.write('</tbody></table>');
+
       // Include results for MDD and OMC in the printable document
       var mddResult = document.getElementById('mddResult').innerHTML;
       var omcResult = document.getElementById('omcResult').innerHTML;

@@ -64,8 +64,8 @@
                 <tr>
                     <th>Sample No.</th>
                     <th>Mass of Can (g)</th>
-                    <th>Mass of Can + Wet Soil (g)</th>
-                    <th>Mass of Can + Dry Soil (g)</th>
+                    <th>Mass of Can with Wet Soil (g)</th>
+                    <th>Mass of Can with Dry Soil (g)</th>
                     <th>Mass of Water (g)</th>
                     <th>Mass of Dry Soil (g)</th>
                     <th>Water Content (%)</th>
@@ -74,12 +74,18 @@
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td><input type="number" id="MassofContainer1" placeholder="Enter Mass of Can" /></td>
-                    <td><input type="number" id="MassofContainer+WetSoil1" placeholder="Enter Mass of Can + Wet soil" /></td>
-                    <td><input type="number" id="MassofContainer+DrySoil1" placeholder="Enter Mass of Can + Dry soil" /></td>
+                    <td><input type="number" id="MassofContainer1" placeholder="Enter" /></td>
+                    <td><input type="number" id="MassofContainerwithWetSoil1" placeholder="Enter" /></td>
+                    <td><input type="number" id="MassofContainerwithDrySoil1" placeholder="Enter" /></td>
                 </tr>
             </tbody>
         </table>
+   <br/>
+  <button onclick="calculateObservations()">Calculate </button>
+<script>
+  function calculate(MassofContainerwithWetSoil, MassofContainer) {
+    return MassofContainerwithWetSoil - MassofContainer ;
+  }
     </div>
 
     <div class="footer">

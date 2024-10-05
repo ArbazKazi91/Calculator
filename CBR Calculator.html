@@ -41,6 +41,7 @@
             color: white;
             border: none;
             cursor: pointer;
+            margin-right: 10px;
         }
         button:hover {
             background-color: #45a049;
@@ -158,6 +159,8 @@
         </p>
 
         <button onclick="calculateCBR()">Calculate CBR</button>
+        <button onclick="printPDF()">Print PDF</button>
+        <button onclick="clearAll()">Clear All</button>
     </div>
 
     <div id="result" style="margin-top: 20px;">
@@ -177,10 +180,10 @@
                 "pdr7_5", "pdr10_0", "pdr12_5"
             ];
 
-            loadIds.forEach((id, index) => {
+            loadIds.forEach((id) => {
                 const pdr = parseFloat(document.getElementById(id).value);
                 if (!isNaN(pdr)) {
-                    const load = pdr * 6; // Multiply PDR by 6
+                    const load = pdr * 64; // Multiply PDR by 64
                     document.getElementById(`load${id.slice(3)}`).value = load.toFixed(2); // Update Load input
                 } else {
                     document.getElementById(`load${id.slice(3)}`).value = ''; // Clear Load if PDR is invalid
@@ -206,6 +209,34 @@
 
             // Display the CBR value
             document.getElementById("cbrValue").textContent = finalCBR.toFixed(2);
+        }
+
+        function printPDF() {
+            const printContent = document.body.innerHTML;
+            const win = window.open('', '', 'height=500, width=800');
+            win.document.write('<html><head><title>Print CBR Value</title>');
+            win.document.write('</head><body >');
+            win.document.write(printContent);
+            win.document.write('</body></html>');
+            win.document.close();
+            win.print();
+        }
+
+        function clearAll() {
+            // Clear all PDR inputs
+            const loadIds = [
+                "pdr0_5", "pdr1_0", "pdr1_5", "pdr2_0", "pdr2_5", 
+                "pdr3_0", "pdr3_5", "pdr4_0", "pdr5_0", 
+                "pdr7_5", "pdr10_0", "pdr12_5"
+            ];
+
+            loadIds.forEach((id) => {
+                document.getElementById(id).value = ''; // Clear PDR inputs
+                document.getElementById(`load${id.slice(3)}`).value = ''; // Clear Load inputs
+            });
+
+            // Clear CBR result
+            document.getElementById("cbrValue").textContent = 'N/A';
         }
     </script>
 

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grain Size Distribution (Semi-log Plot)</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Grain Size Distribution (Calculation Only)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,9 +28,6 @@
         input[type="number"] {
             width: 100px;
         }
-        canvas {
-            margin-top: 30px;
-        }
         button {
             margin: 20px 0;
             padding: 10px 15px;
@@ -45,7 +41,7 @@
 <body>
 
 <div class="container">
-    <h1>Grain Size Distribution (Semi-log Plot)</h1>
+    <h1>Grain Size Distribution (Calculation Only)</h1>
     <table>
         <thead>
             <tr>
@@ -129,16 +125,14 @@
             </tr>
         </tbody>
     </table>
-    <button onclick="calculate()">Calculate and Plot</button>
-
-    <canvas id="grainSizeChart"></canvas>
+    <button onclick="calculate()">Calculate</button>
 </div>
 
 <script>
     function calculate() {
         const rows = 10;  // Fixed number of sieve sizes
         let totalWeight = 0;
-        let cumulativePassing = [];
+
         // Assigning numeric values for sieve sizes (Pan is given a very small value, e.g., 0.01 mm)
         let sieveSizes = [10, 4.75, 2.36, 1.18, 0.60, 0.425, 0.30, 0.15, 0.075, 0.01];
 
@@ -159,53 +153,7 @@
             document.getElementById('cumulativeWeight' + i).innerText = cumulativeWeight.toFixed(2);
             document.getElementById('cumulativePercentRetained' + i).innerText = cumulativePercentRetained.toFixed(2);
             document.getElementById('cumulativePercentPassing' + i).innerText = cumulativePercentPassing.toFixed(2);
-
-            cumulativePassing.push(cumulativePercentPassing);
         }
-
-        plotChart(sieveSizes, cumulativePassing);
-    }
-
-    function plotChart(sieveSizes, cumulativePassing) {
-        const ctx = document.getElementById('grainSizeChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: sieveSizes,
-                datasets: [{
-                    label: 'Cumulative % Passing',
-                    data: cumulativePassing,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    fill: false,
-                    tension: 0.1
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        type: 'logarithmic',  // Setting the x-axis to be logarithmic
-                        title: {
-                            display: true,
-                            text: 'Sieve Size (mm) [Log Scale]'
-                        },
-                        ticks: {
-                            callback: function(value, index, values) {
-                                return sieveSizes[index] + ' mm';  // Custom labels for the sieve sizes
-                            }
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Cumulative % Passing'
-                        },
-                        min: 0,
-                        max: 100
-                    }
-                }
-            }
-        });
     }
 </script>
 

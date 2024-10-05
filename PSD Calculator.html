@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grain Size Distribution</title>
+    <title>Grain Size Distribution (Semi-log Plot)</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -45,7 +45,7 @@
 <body>
 
 <div class="container">
-    <h1>Grain Size Distribution</h1>
+    <h1>Grain Size Distribution (Semi-log Plot)</h1>
     <table>
         <thead>
             <tr>
@@ -139,7 +139,8 @@
         const rows = 10;  // Fixed number of sieve sizes
         let totalWeight = 0;
         let cumulativePassing = [];
-        let sieveSizes = ['10 mm', '4.75 mm', '2.36 mm', '1.18 mm', '0.60 mm', '0.425 mm', '0.30 mm', '0.15 mm', '0.075 mm', 'Pan'];
+        // Assigning numeric values for sieve sizes (Pan is given a very small value, e.g., 0.01 mm)
+        let sieveSizes = [10, 4.75, 2.36, 1.18, 0.60, 0.425, 0.30, 0.15, 0.075, 0.01];
 
         // Calculate cumulative weights and percentages
         for (let i = 1; i <= rows; i++) {
@@ -183,9 +184,15 @@
             options: {
                 scales: {
                     x: {
+                        type: 'logarithmic',  // Setting the x-axis to be logarithmic
                         title: {
                             display: true,
-                            text: 'Sieve Size'
+                            text: 'Sieve Size (mm) [Log Scale]'
+                        },
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return sieveSizes[index] + ' mm';  // Custom labels for the sieve sizes
+                            }
                         }
                     },
                     y: {

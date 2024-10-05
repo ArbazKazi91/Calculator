@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBR Value Calculation as per IS 2720</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .calculation {
+            margin-top: 20px;
+        }
+        input[type="number"] {
+            width: 100px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CBR Value Calculation as per IS 2720 (Part 16)</h1>
+
+    <h2>Observation Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Sr. No.</th>
+                <th>Penetration (mm)</th>
+                <th>SDR</th>
+                <th>PDR</th>
+                <th>Load (N)</th>
+            </tr>
+        </thead>
+        <tbody id="observationTable">
+            <tr>
+                <td>1</td>
+                <td>0.5 mm</td>
+                <td><input type="number" id="sdr0_5" placeholder="SDR"></td>
+                <td><input type="number" id="pdr0_5" placeholder="PDR"></td>
+                <td><input type="number" id="load0_5" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>1.0 mm</td>
+                <td><input type="number" id="sdr1_0" placeholder="SDR"></td>
+                <td><input type="number" id="pdr1_0" placeholder="PDR"></td>
+                <td><input type="number" id="load1_0" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>1.5 mm</td>
+                <td><input type="number" id="sdr1_5" placeholder="SDR"></td>
+                <td><input type="number" id="pdr1_5" placeholder="PDR"></td>
+                <td><input type="number" id="load1_5" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>2.0 mm</td>
+                <td><input type="number" id="sdr2_0" placeholder="SDR"></td>
+                <td><input type="number" id="pdr2_0" placeholder="PDR"></td>
+                <td><input type="number" id="load2_0" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>2.5 mm</td>
+                <td><input type="number" id="sdr2_5" placeholder="SDR"></td>
+                <td><input type="number" id="pdr2_5" placeholder="PDR"></td>
+                <td><input type="number" id="load2_5" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>3.0 mm</td>
+                <td><input type="number" id="sdr3_0" placeholder="SDR"></td>
+                <td><input type="number" id="pdr3_0" placeholder="PDR"></td>
+                <td><input type="number" id="load3_0" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>3.5 mm</td>
+                <td><input type="number" id="sdr3_5" placeholder="SDR"></td>
+                <td><input type="number" id="pdr3_5" placeholder="PDR"></td>
+                <td><input type="number" id="load3_5" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>4.0 mm</td>
+                <td><input type="number" id="sdr4_0" placeholder="SDR"></td>
+                <td><input type="number" id="pdr4_0" placeholder="PDR"></td>
+                <td><input type="number" id="load4_0" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>5.0 mm</td>
+                <td><input type="number" id="sdr5_0" placeholder="SDR"></td>
+                <td><input type="number" id="pdr5_0" placeholder="PDR"></td>
+                <td><input type="number" id="load5_0" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>7.5 mm</td>
+                <td><input type="number" id="sdr7_5" placeholder="SDR"></td>
+                <td><input type="number" id="pdr7_5" placeholder="PDR"></td>
+                <td><input type="number" id="load7_5" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>10.0 mm</td>
+                <td><input type="number" id="sdr10_0" placeholder="SDR"></td>
+                <td><input type="number" id="pdr10_0" placeholder="PDR"></td>
+                <td><input type="number" id="load10_0" placeholder="Load (N)"></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>12.5 mm</td>
+                <td><input type="number" id="sdr12_5" placeholder="SDR"></td>
+                <td><input type="number" id="pdr12_5" placeholder="PDR"></td>
+                <td><input type="number" id="load12_5" placeholder="Load (N)"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="calculation">
+        <h2>Standard Loads as per IS 2720</h2>
+        <p>
+            Standard Load for 2.5 mm penetration = 1370 kg (13433 N)<br>
+            Standard Load for 5.0 mm penetration = 2055 kg (20003 N)
+        </p>
+
+        <button onclick="calculateCBR()">Calculate CBR</button>
+    </div>
+
+    <div id="result" style="margin-top: 20px;">
+        <h2>CBR Value: <span id="cbrValue">N/A</span>%</h2>
+    </div>
+
+    <script>
+        function calculateCBR() {
+            // Standard loads (from IS 2720 Part 16) in Newtons
+            const standardLoad2_5 = 13433; // 1370 kg to N
+            const standardLoad5_0 = 20003; // 2055 kg to N
+
+            // Get the user input loads for 2.5 mm and 5.0 mm penetration
+            let load2_5 = parseFloat(document.getElementById("load2_5").value);
+            let load5_0 = parseFloat(document.getElementById("load5_0").value);
+
+            // Ensure that inputs are valid numbers
+            if (isNaN(load2_5) || isNaN(load5_0)) {
+                alert("Please enter valid load values for both 2.5 mm and 5.0 mm penetrations.");
+                return;
+            }
+
+            // Calculate CBR values for 2.5 mm and 5.0 mm penetration
+            let cbr2_5 = (load2_5 /

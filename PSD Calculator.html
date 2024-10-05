@@ -58,70 +58,70 @@
         </thead>
         <tbody id="observationTable">
             <tr>
-                <td><input type="number" id="sieveSize1" placeholder="10mm"></td>
+                <td>10 mm</td>
                 <td><input type="number" id="weightRetained1" placeholder="Weight Retained" oninput="calculate()"></td>
                 <td id="cumulativeWeight1">-</td>
                 <td id="cumulativePercentRetained1">-</td>
                 <td id="cumulativePercentPassing1">-</td>
             </tr>
             <tr>
-                <td><input type="number" id="sieveSize2" placeholder="4.75mm"></td>
+                <td>4.75 mm</td>
                 <td><input type="number" id="weightRetained2" placeholder="Weight Retained" oninput="calculate()"></td>
                 <td id="cumulativeWeight2">-</td>
                 <td id="cumulativePercentRetained2">-</td>
                 <td id="cumulativePercentPassing2">-</td>
             </tr>
             <tr>
-                <td><input type="number" id="sieveSize3" placeholder="2.36mm"></td>
+                <td>2.36 mm</td>
                 <td><input type="number" id="weightRetained3" placeholder="Weight Retained" oninput="calculate()"></td>
                 <td id="cumulativeWeight3">-</td>
                 <td id="cumulativePercentRetained3">-</td>
                 <td id="cumulativePercentPassing3">-</td>
             </tr>
             <tr>
-                <td><input type="number" id="sieveSize4" placeholder="1.18mm"></td>
+                <td>1.18 mm</td>
                 <td><input type="number" id="weightRetained4" placeholder="Weight Retained" oninput="calculate()"></td>
                 <td id="cumulativeWeight4">-</td>
                 <td id="cumulativePercentRetained4">-</td>
                 <td id="cumulativePercentPassing4">-</td>
             </tr>
-          <tr>
-                <td><input type="number" id="sieveSize5" placeholder="0.60mm"></td>
+            <tr>
+                <td>0.60 mm</td>
                 <td><input type="number" id="weightRetained5" placeholder="Weight Retained" oninput="calculate()"></td>
                 <td id="cumulativeWeight5">-</td>
                 <td id="cumulativePercentRetained5">-</td>
                 <td id="cumulativePercentPassing5">-</td>
             </tr>
-          <tr>
-                <td><input type="number" id="sieveSize6" placeholder="0.425mm"></td>
+            <tr>
+                <td>0.425 mm</td>
                 <td><input type="number" id="weightRetained6" placeholder="Weight Retained" oninput="calculate()"></td>
                 <td id="cumulativeWeight6">-</td>
                 <td id="cumulativePercentRetained6">-</td>
                 <td id="cumulativePercentPassing6">-</td>
             </tr>
-          <tr>
-                <td><input type="number" id="sieveSize7" placeholder="0.30mm"></td>
+            <tr>
+                <td>0.30 mm</td>
                 <td><input type="number" id="weightRetained7" placeholder="Weight Retained" oninput="calculate()"></td>
-                <td id="cumulativeWeight">-</td>
+                <td id="cumulativeWeight7">-</td>
                 <td id="cumulativePercentRetained7">-</td>
                 <td id="cumulativePercentPassing7">-</td>
             </tr>
-          <tr>
-                <td><input type="number" id="sieveSize8" placeholder="0.15mm"></td>
+            <tr>
+                <td>0.15 mm</td>
                 <td><input type="number" id="weightRetained8" placeholder="Weight Retained" oninput="calculate()"></td>
                 <td id="cumulativeWeight8">-</td>
                 <td id="cumulativePercentRetained8">-</td>
                 <td id="cumulativePercentPassing8">-</td>
             </tr>
-          <tr>
-                <td><input type="number" id="sieveSize9" placeholder="0.075mm"></td>
+            <tr>
+                <td>0.075 mm</td>
                 <td><input type="number" id="weightRetained9" placeholder="Weight Retained" oninput="calculate()"></td>
                 <td id="cumulativeWeight9">-</td>
                 <td id="cumulativePercentRetained9">-</td>
                 <td id="cumulativePercentPassing9">-</td>
             </tr>
-          <tr>
-                <td><input type="number" id="sieveSize10" placeholder="Pan"></td>
+            <tr>
+                <td>Pan</td>
                 <td><input type="number" id="weightRetained10" placeholder="Weight Retained" oninput="calculate()"></td>
                 <td id="cumulativeWeight10">-</td>
                 <td id="cumulativePercentRetained10">-</td>
@@ -136,10 +136,10 @@
 
 <script>
     function calculate() {
-        const rows = 3;  // Modify this according to how many rows you have
+        const rows = 10;  // Fixed number of sieve sizes
         let totalWeight = 0;
-        let sieveSizes = [];
         let cumulativePassing = [];
+        let sieveSizes = ['10 mm', '4.75 mm', '2.36 mm', '1.18 mm', '0.60 mm', '0.425 mm', '0.30 mm', '0.15 mm', '0.075 mm', 'Pan'];
 
         // Calculate cumulative weights and percentages
         for (let i = 1; i <= rows; i++) {
@@ -149,7 +149,6 @@
 
         let cumulativeWeight = 0;
         for (let i = 1; i <= rows; i++) {
-            const sieveSize = parseFloat(document.getElementById('sieveSize' + i).value) || 0;
             const weightRetained = parseFloat(document.getElementById('weightRetained' + i).value) || 0;
 
             cumulativeWeight += weightRetained;
@@ -160,7 +159,6 @@
             document.getElementById('cumulativePercentRetained' + i).innerText = cumulativePercentRetained.toFixed(2);
             document.getElementById('cumulativePercentPassing' + i).innerText = cumulativePercentPassing.toFixed(2);
 
-            sieveSizes.push(sieveSize);
             cumulativePassing.push(cumulativePercentPassing);
         }
 
@@ -187,7 +185,7 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Sieve Size (mm)'
+                            text: 'Sieve Size'
                         }
                     },
                     y: {
